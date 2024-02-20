@@ -10,6 +10,18 @@ export const pagPrincipal=(req,res)=>{
             })
     }
 }
+
+export const dashboard=(req,res)=>{
+    try {
+        res.render('dashboard')
+    } catch (error) {
+        return res.status(500).json({
+            //  message: error.message
+             message: "something went wrong"
+            })
+    }
+}
+
 export const terrenosImg=(req,res)=>{
     try {
         res.render('terrenos')

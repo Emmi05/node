@@ -1,17 +1,17 @@
 import { Router } from 'express';
-import { getemployees, createEmployees,updateEmployess,deleteEmployees,getemployee,pagPrincipal,terrenosImg } from '../controller/ejemplo.controller.js';
+import { getemployees, createEmployees,updateEmployess,deleteEmployees,getemployee,pagPrincipal,terrenosImg,dashboard } from '../controller/ejemplo.controller.js';
 
 const router = Router();
 
-
-
-//en index era app.get pero aqui es router
 ///CUANDO ACCEDO AQUI, MI CONTROLADOR HARA TAL COSAAAA
-// router.get('/',pagPrincipal);
-
+//rutas ESTATICAS
 router.get('/',pagPrincipal) 
+
 router.get('/terrenos',terrenosImg) 
 
+router.get('/dashboard',dashboard) 
+
+//RUTAS DINAMICAS
 router.get('/employees',getemployees );
 
 router.get('/employees/:id',getemployee);
