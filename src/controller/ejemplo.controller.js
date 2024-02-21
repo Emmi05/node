@@ -32,7 +32,26 @@ export const terrenosImg=(req,res)=>{
             })
     }
 }
-
+export const formulario=(req,res)=>{
+    try {
+        res.render('formulario')
+    } catch (error) {
+        return res.status(500).json({
+            //  message: error.message
+             message: "something went wrong"
+            })
+    }
+}
+export const consulta=(req,res)=>{
+    try {
+        res.render('empleados')
+    } catch (error) {
+        return res.status(500).json({
+            //  message: error.message
+             message: "something went wrong"
+            })
+    }
+}
 
 export const getemployees= async(req,res)=>{
     //Manejo de errores
@@ -74,12 +93,14 @@ export const createEmployees=async(req,res)=> {
         const [rows] = await pool.query('INSERT INTO usuarios(nombre, usuario, password) VALUES (?, ?,?)', 
         [nombre, usuario, password])
         // console.log(req.body);
-        res.send ({
-            id:rows.insertId,
-            nombre,
-            usuario,
-            password,
-         } );
+        res.send()
+        // res.send ({
+        //     id:rows.insertId,
+        //     nombre,
+        //     usuario,
+        //     password,
+        //  } );
+       
     } catch (error) {
         return res.status(500).json({
             message:'something went wrong'

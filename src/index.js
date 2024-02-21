@@ -14,10 +14,12 @@ console.log(join(__dirname, 'views')) //mueSTRA TODA MIS CARPETAS desde c hasta 
 app.set('views',join(__dirname,'views',)) //mi carpeta
 app.use(express.static(join(__dirname, 'public')));
 
+app.use(express.urlencoded({extended:false}));
+
 app.set('view engine','ejs');
 app.use(express.json()); //hace que mis peticiones se conviertan a json para poder leearlas
 app.use(indexRutas)
-app.use('/api',ejemploRutas);
+app.use('/',ejemploRutas);
 
 //midleware
 app.use((req, res, next) => {
