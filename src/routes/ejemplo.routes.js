@@ -13,7 +13,7 @@ router.get('/dashboard',dashboard)
 
 router.get('/formulario',formulario) 
 
-router.get('/consultar',consulta) 
+// router.get('/consultar',consulta) 
 
 
 //RUTAS DINAMICAS

@@ -58,7 +58,8 @@ export const getemployees= async(req,res)=>{
     try {
         // throw new Error('BD')
         const [rows] = await pool.query('SELECT *FROM usuarios')
-        res.json(rows)
+        res.render('empleados', { empleados: rows })
+        // res.json(rows)
     } catch (error) {
         return res.status(500).json({
         //  message: error.message
