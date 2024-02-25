@@ -11,6 +11,17 @@ export const pagPrincipal=(req,res)=>{
     }
 }
 
+export const login=(req,res)=>{
+    try {
+        res.render('login')
+    } catch (error) {
+        return res.status(500).json({
+            //  message: error.message
+             message: "something went wrong"
+            })
+    }
+}
+
 export const dashboard=(req,res)=>{
     try {
         res.render('dashboard')
@@ -42,16 +53,7 @@ export const formulario=(req,res)=>{
             })
     }
 }
-export const consulta=(req,res)=>{
-    try {
-        res.render('empleados')
-    } catch (error) {
-        return res.status(500).json({
-            //  message: error.message
-             message: "something went wrong"
-            })
-    }
-}
+
 
 export const getemployees= async(req,res)=>{
     //Manejo de errores

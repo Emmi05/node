@@ -27,7 +27,18 @@ app.use((req, res, next) => {
     res.render('404')
 });
 
+//invocamos a bcryptjs
+const bcryptjs=import('bcryptjs');
 
+
+//var sesiones
+const session= import ('express-session');
+app.use(session({
+    secret:'secret',
+    resave: true,
+    saveUninitialized: true
+
+}));
 
 app.listen(3000);
 console.log('listening on port 3000');

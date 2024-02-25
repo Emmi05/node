@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getemployees, createEmployees,updateEmployess,deleteEmployees,getemployee,pagPrincipal,terrenosImg,dashboard,formulario,consulta } from '../controller/ejemplo.controller.js';
+import { getemployees, createEmployees,updateEmployess,deleteEmployees,getemployee,pagPrincipal,terrenosImg,dashboard,formulario,login } from '../controller/ejemplo.controller.js';
 
 const router = Router();
 
@@ -7,13 +7,15 @@ const router = Router();
 //rutas ESTATICAS
 router.get('/',pagPrincipal) 
 
+router.get('/login',login) 
+
 router.get('/terrenos',terrenosImg) 
 
 router.get('/dashboard',dashboard) 
 
 router.get('/formulario',formulario) 
 
-// router.get('/consultar',consulta) 
+
 
 
 //RUTAS DINAMICAS
