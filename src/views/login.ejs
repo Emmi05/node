@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../styles/login.css">
+    <script src="../scripts/login.js" defer></script>
 
 </head>
 <body>
@@ -70,10 +71,10 @@
             </div>
             <p class="small">Usa tus credenciales por favor:</p>
             <form id="sign-up-form">
-              <input type="text" placeholder="Usuario"/>
+              <input type="text" placeholder="Usuario" name="user" id="user"/>
               <!-- <input type="email" placeholder="Email"/> -->
-              <input type="password" placeholder="Password"/>
-              <button class="control-button up">Iniciar sesión</button>
+              <input type="password" placeholder="Password" id="password" name="password"/>
+              <button class="control-button up" type="submit">Iniciar sesión</button>
             </form>
           </div>
         </div>

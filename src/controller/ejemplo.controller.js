@@ -1,4 +1,12 @@
 import {pool} from '../db.js';
+import bcryptjs from "bcryptjs";
+// import jsonwebtoken from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+let usuarios=[];
+
 
 export const pagPrincipal=(req,res)=>{
     try {
@@ -14,6 +22,23 @@ export const pagPrincipal=(req,res)=>{
 export const login=(req,res)=>{
     try {
         res.render('login')
+        console.log(req.body) //aqui me muestra datos que envio 
+        const user= req.body.user
+        const password= req.body.password
+        if(!user || !password || !email){
+            return res.status(400).send({status:"Error",message:"Los campos están incompletos"})
+          }
+          const usuarioAResvisar = usuarios.find(usuario => usuario.user === user);
+          if(!usuarioAResvisar){
+            return res.status(400).send({status:"Error",message:"Error durante login"})
+          }
+        //   const loginCorrecto = await bcryptjs.compare(password,usuarioAResvisar.password);
+        //   if(!loginCorrecto){
+        //     return res.status(400).send({status:"Error",message:"Error durante login"})
+        //   }
+         
+          
+        //comparar datos
     } catch (error) {
         return res.status(500).json({
             //  message: error.message
@@ -55,12 +80,14 @@ export const formulario=(req,res)=>{
 }
 
 
-export const getemployees= async(req,res)=>{
+ const getemployees= async(req,res)=>{
     //Manejo de errores
     try {
         // throw new Error('BD')
-        const [rows] = await pool.query('SELECT *FROM usuarios')
-        res.render('empleados', { empleados: rows })
+        const [rows] = await pool.query('SELECT *FROM usuarios');
+         return usuarios=rows;
+        //  res.render('empleados', { empleados: rows })
+        // return [{rows}]
         // res.json(rows)
     } catch (error) {
         return res.status(500).json({
@@ -72,6 +99,7 @@ export const getemployees= async(req,res)=>{
 
 export const getemployee= async(req,res) => {
    try {
+    console.log(usuarios)  
     // throw new Error('error inesperado')
      // console.log(req.params.id)
      const [rows] = await pool.query('SELECT * FROM usuarios WHERE id = ?', [req.params.id])
@@ -90,23 +118,34 @@ export const getemployee= async(req,res) => {
 }
 
 
-export const createEmployees=async(req,res)=> {
+ const createEmployees=async(req,res)=> {
     const {nombre, usuario, password} = req.body;
     try {
-        const [rows] = await pool.query('INSERT INTO usuarios(nombre, usuario, password) VALUES (?, ?,?)', 
-        [nombre, usuario, password])
+        if(!usuario || !password){
+            return res.status(400).send({status:"Error",message:"Los campos están incompletos"})
+        }
+        //user es variable que yo creo para almacenar .usuario es mi campo y == a lo que envio si es así ps no se puede reina
+        const usuarioAResvisar = usuarios.find(usuario => usuario.usuario === usuario);
+        
+        if(usuarioAResvisar){
+          return res.status(400).send({status:"Error",message:"Este usuario ya existe"})
+        }
+        else{
+            const salt = await bcryptjs.genSalt(5);
+            const hashPassword = await bcryptjs.hash(password,salt);
+            const nuevoUsuario ={
+            usuario, password: hashPassword
+              }
+                const [rows] = await pool.query('INSERT INTO usuarios(nombre, usuario, password) VALUES (?, ?,?)', 
+                [nombre, usuario, password])
+                return res.status(201).send({status:"ok",message:'Usuario agregado'})
+                
+        }
         // console.log(req.body);
-        res.send()
-        // res.send ({
-        //     id:rows.insertId,
-        //     nombre,
-        //     usuario,
-        //     password,
-        //  } );
-       
+        // res.send()
     } catch (error) {
         return res.status(500).json({
-            message:'something went wrong'
+            message:'Algo va mal'
         })
     }
 };
@@ -148,3 +187,9 @@ export const updateEmployess=async(req,res)=>{
    }
 }
 
+export const methods = {
+    login,
+    getemployees,
+    createEmployees,
+
+  }
