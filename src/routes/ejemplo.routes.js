@@ -7,9 +7,9 @@ const router = Router();
 //rutas ESTATICAS
 router.get('/',pagPrincipal) 
 
-router.get("/login",authentication.login);
+// router.get("/login",authentication.login);
 
-router.post("/login",authentication.login);
+// router.post("/login",authentication.login);
 
 router.get('/terrenos',terrenosImg) 
 
